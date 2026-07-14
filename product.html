@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detail Produk - BangJorPhone</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>BangJorPhone</h1>
+    <p>Katalog HP Bekas - Ivy Communications</p>
+  </header>
+
+  <main>
+    <a class="back-link" href="index.html">&larr; Kembali ke katalog</a>
+    <p id="state-message" class="state-message">Memuat produk...</p>
+
+    <div id="detail-content" style="display:none;">
+      <div id="photo-gallery" class="photo-gallery"></div>
+      <div id="video-wrap" class="video-wrap" style="display:none;"></div>
+
+      <div class="detail-card">
+        <h2 id="detail-model"></h2>
+        <p id="detail-price" class="price"></p>
+        <table class="spec-table">
+          <tbody id="spec-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="buy-bar" class="buy-bar" style="display:none;">
+    <a id="buy-button" class="buy-button" target="_blank" rel="noopener">Beli via WhatsApp</a>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>
