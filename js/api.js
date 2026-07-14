@@ -12,21 +12,39 @@ function formatBattery(raw) {
   return str;
 }
 
-// GAS Web App endpoint 呼叫封裝
+// 商品資料改讀 GAS 定期發布出來的靜態 JSON（跟網站放在同一個 repo），
+// 瀏覽時不再即時呼叫 GAS，載入速度快很多。
+// cache: 'no-store' 是為了避免瀏覽器快取住舊的庫存狀態（例如已售出的商品）。
+const CATALOG_DATA_URL = 'data/products.json';
+
+let _allProductsPromise = null;
+
+function fetchAllProducts() {
+  if (!_allProductsPromise) {
+    _allProductsPromise = fetch(CATALOG_DATA_URL, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Gagal memuat data produk');
+        return res.json();
+      })
+      .catch(function (err) {
+        _allProductsPromise = null; // 失敗時允許重試
+        throw err;
+      });
+  }
+  return _allProductsPromise;
+}
 
 async function fetchProductList() {
-  const url = CONFIG.GAS_ENDPOINT_URL + '?action=list';
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Gagal memuat daftar produk');
-  return res.json();
+  return fetchAllProducts();
 }
 
 async function fetchProductDetail(id) {
-  const url = CONFIG.GAS_ENDPOINT_URL + '?action=detail&id=' + encodeURIComponent(id);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('Gagal memuat detail produk');
-  return res.json();
+  const products = await fetchAllProducts();
+  const targetId = String(id).trim();
+  return products.find(function (p) { return String(p.id).trim() === targetId; }) || null;
 }
+
+// 點擊追蹤還是即時打 GAS（唯一還需要即時串接的功能）
 
 // Fire-and-forget：點擊追蹤不應阻擋使用者導向 WhatsApp，失敗也不影響購買流程
 function trackClick(id) {
