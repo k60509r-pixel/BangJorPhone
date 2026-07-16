@@ -7,18 +7,28 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="topbar">
-    <h1>BangJorPhone</h1>
-    <p>Katalog HP Bekas - Ivy Communications</p>
+  <header class="topbar topbar-logo">
+    <img class="logo" src="assets/logo.svg" alt="JorPhone"
+         onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+    <div id="logo-fallback" class="logo-fallback" style="display:none;">BangJorPhone</div>
   </header>
+
+  <nav id="category-nav" class="category-nav"></nav>
+
+  <div id="filter-status" class="filter-status" hidden>
+    <span id="filter-status-text"></span>
+    <button id="clear-filter-btn" type="button">Tampilkan Semua</button>
+  </div>
 
   <main>
     <p id="state-message" class="state-message">Memuat produk...</p>
+    <p id="empty-category-message" class="state-message" hidden>Maaf, stok untuk kategori ini sedang kosong. Silakan cek kategori lain atau hubungi kami via WhatsApp untuk info terbaru.</p>
     <div id="product-grid" class="product-grid"></div>
   </main>
 
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
+  <script src="js/categories.js"></script>
   <script src="js/list.js"></script>
 </body>
 </html>
