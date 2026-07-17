@@ -17,8 +17,10 @@
     <p id="state-message" class="state-message">Memuat produk...</p>
 
     <div id="detail-content" style="display:none;">
-      <div id="photo-gallery" class="photo-gallery"></div>
-      <div id="video-wrap" class="video-wrap" style="display:none;"></div>
+      <div id="media-carousel-wrap" class="media-carousel-wrap">
+        <div id="media-carousel" class="media-carousel"></div>
+        <div id="media-indicator" class="media-indicator" hidden></div>
+      </div>
 
       <div class="detail-card">
         <h2 id="detail-model"></h2>
@@ -27,6 +29,11 @@
           <tbody id="spec-body"></tbody>
         </table>
       </div>
+
+      <section id="related-products" class="related-products" hidden>
+        <h3>Model serupa lainnya</h3>
+        <div id="related-grid" class="related-grid"></div>
+      </section>
     </div>
   </main>
 
@@ -36,6 +43,8 @@
 
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/render.js"></script>
   <script src="js/detail.js"></script>
 </body>
 </html>

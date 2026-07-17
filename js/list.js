@@ -1,44 +1,4 @@
-function formatPrice(price) {
-  const n = Number(price);
-  if (isNaN(n)) return price;
-  return 'NT$' + n.toLocaleString('en-US');
-}
-
-function renderProductCard(product) {
-  const a = document.createElement('a');
-  a.className = 'product-card';
-  a.href = 'product.html?id=' + encodeURIComponent(product.id);
-
-  const img = document.createElement('img');
-  img.className = 'thumb';
-  img.loading = 'lazy';
-  img.alt = product.model || '';
-  if (product.coverPhotoUrl) {
-    img.src = product.coverPhotoUrl;
-  } else {
-    img.classList.add('placeholder');
-    img.alt = 'Tidak ada foto';
-  }
-
-  const info = document.createElement('div');
-  info.className = 'info';
-  info.innerHTML =
-    '<p class="model">' + escapeHtml(product.model || '') + '</p>' +
-    '<p class="spec">' + escapeHtml([product.capacity, product.color].filter(Boolean).join(' · ')) + '</p>' +
-    '<p class="spec">' + escapeHtml(formatBattery(product.battery)) + '</p>' +
-    '<p class="price">' + escapeHtml(formatPrice(product.price)) + '</p>' +
-    '<p class="store">' + escapeHtml(product.store || '') + '</p>';
-
-  a.appendChild(img);
-  a.appendChild(info);
-  return a;
-}
-
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = String(str == null ? '' : str);
-  return div.innerHTML;
-}
+// formatPrice / escapeHtml / renderProductCard 已搬到 js/render.js（與詳情頁「更多款式」共用）
 
 // ===== 分類導覽選單（accordion）與篩選狀態 =====
 // 對應《UI優化與分類導覽規格書 v1.1》第三節

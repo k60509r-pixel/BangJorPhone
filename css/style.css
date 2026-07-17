@@ -158,7 +158,32 @@ header.topbar-logo .logo-fallback {
 main {
   max-width: 960px;
   margin: 0 auto;
-  padding: 12px;
+  padding: 12px 12px 96px;
+}
+
+/* ===== 更多款式 ===== */
+
+.related-products h3 {
+  font-size: 15px;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+
+.related-grid {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.related-grid .product-card {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+}
+
+.related-grid .product-card .thumb {
+  aspect-ratio: 1 / 1;
 }
 
 /* ===== List page ===== */
@@ -238,36 +263,75 @@ main {
   font-size: 14px;
 }
 
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+/* ===== 商品照片＋影片輪播 ===== */
+
+.media-carousel-wrap {
+  position: relative;
   margin-bottom: 12px;
 }
 
-.photo-gallery img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 6px;
+.media-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  background: #eee;
+  scrollbar-width: none;
+}
+
+.media-carousel::-webkit-scrollbar { display: none; }
+
+.media-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  aspect-ratio: 3 / 4;
   background: #eee;
 }
 
-.video-wrap {
-  position: relative;
+.media-slide img,
+.media-slide video {
   width: 100%;
-  padding-top: 56.25%;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  overflow: hidden;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.media-slide.video-slide {
+  position: relative;
   background: #000;
 }
 
-.video-wrap iframe {
+.video-play-btn {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  line-height: 56px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.video-play-btn::before { content: "\25B6"; }
+
+.media-slide.playing .video-play-btn { display: none; }
+
+.media-indicator {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 9px;
+  border-radius: 999px;
 }
 
 .detail-card {
@@ -275,7 +339,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  margin-bottom: 80px;
+  margin-bottom: 16px;
 }
 
 .detail-card h2 {

@@ -3,7 +3,10 @@ function formatBattery(raw) {
   const str = String(raw == null ? '' : raw).trim();
   if (!str) return '';
   if (str.indexOf('%') !== -1) return str;
-  if (str.indexOf('循環') !== -1) return str.indexOf('次') !== -1 ? str : str + '次';
+  if (str.indexOf('循環') !== -1) {
+    const cycles = str.match(/\d+/);
+    return 'Siklus ' + (cycles ? cycles[0] : str.replace(/循環|次/g, '').trim()) + 'x';
+  }
   const n = Number(str);
   if (!isNaN(n) && str !== '') {
     if (n > 0 && n <= 1) return Math.round(n * 100) + '%';
@@ -36,12 +39,6 @@ function fetchAllProducts() {
 
 async function fetchProductList() {
   return fetchAllProducts();
-}
-
-async function fetchProductDetail(id) {
-  const products = await fetchAllProducts();
-  const targetId = String(id).trim();
-  return products.find(function (p) { return String(p.id).trim() === targetId; }) || null;
 }
 
 // 點擊追蹤還是即時打 GAS（唯一還需要即時串接的功能）

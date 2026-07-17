@@ -101,3 +101,41 @@ function filterProducts(products, topKey, subKey) {
     return sub && sub.key === subKey;
   });
 }
+
+// 表3-2：保固天數對照表（對應《詳情頁優化與保固顯示 v1.2 執行書》第三節）
+// 沿用同一套機型分類邏輯（IPHONE_SUBCATEGORIES），保固/導覽選單/更多款式三處共用一份規則
+const IPHONE_WARRANTY_DAYS = {
+  'iphone-8-se': 90,
+  'iphone-x': 90,
+  'iphone-11': 180,
+  'iphone-12': 180,
+  'iphone-13': 180,
+  'iphone-14': 180,
+  'iphone-15': 180,
+  'iphone-16': 180,
+  'iphone-17': 180,
+};
+const NON_IPHONE_WARRANTY_DAYS = 90; // Apple其他產品、Android 一律 90 天
+
+// 依商品所屬機型分類回傳保固天數，找不到分類時回傳 null（畫面上不顯示該列）
+function getWarrantyDays(product) {
+  const topCategory = findTopCategory(product.category);
+  if (!topCategory) return null;
+  if (topCategory.key !== 'iphone') return NON_IPHONE_WARRANTY_DAYS;
+  const sub = resolveSubcategory(topCategory, product);
+  return sub ? (IPHONE_WARRANTY_DAYS[sub.key] || null) : null;
+}
+
+// 找出與 product 同一機型系列（同頂層分類＋同子分類）的其他在庫商品，供詳情頁「更多款式」使用
+function getSameSeriesProducts(products, product) {
+  const topCategory = findTopCategory(product.category);
+  if (!topCategory) return [];
+  const targetSub = resolveSubcategory(topCategory, product);
+  const targetSubKey = targetSub ? targetSub.key : null;
+  return products.filter(function (p) {
+    if (p.id === product.id) return false;
+    if (p.category !== product.category) return false;
+    const sub = resolveSubcategory(topCategory, p);
+    return (sub ? sub.key : null) === targetSubKey;
+  });
+}
