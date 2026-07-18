@@ -6,5 +6,5 @@ const CONFIG = {
 
   // WhatsApp 客服號碼（國際格式，不含 + 號與符號），例如台灣門市號碼 886912345678
   // v1.0 先以單一號碼上線，待詢問量提升後再評估是否依門市（雅潭／頭張）分流
-  WHATSAPP_NUMBER: 'PUT_WHATSAPP_NUMBER_HERE',
+  WHATSAPP_NUMBER: '886908775331',
 };
