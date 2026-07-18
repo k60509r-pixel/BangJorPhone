@@ -157,8 +157,8 @@ async function initDetailPage() {
   }
   try {
     const allProducts = await fetchAllProducts();
-    const targetId = String(id).trim();
-    const product = allProducts.find(function (p) { return String(p.id).trim() === targetId; }) || null;
+    const targetId = normalizeProductId(id);
+    const product = allProducts.find(function (p) { return normalizeProductId(p.id) === targetId; }) || null;
     if (!product || product.error) {
       stateEl.textContent = 'Produk tidak ditemukan atau sudah terjual.';
       return;

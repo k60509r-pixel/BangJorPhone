@@ -13,10 +13,18 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+// 商品編號在 Sheet 裡本來就存成 "#5209" 這種含 # 的格式。
+// 連結網址故意不帶 #（TikTok 內建瀏覽器對網址帶 # / %23 的連結會攔截，
+// 強制跳出「用瀏覽器開啟」的安全頁面，多一次點擊 — 拿掉它可以讓使用者
+// 從列表頁點商品直接進到詳情頁，不被多攔一次）。
+function normalizeProductId(id) {
+  return String(id == null ? '' : id).trim().replace(/^#/, '');
+}
+
 function renderProductCard(product) {
   const a = document.createElement('a');
   a.className = 'product-card';
-  a.href = 'product.html?id=' + encodeURIComponent(product.id);
+  a.href = 'product.html?id=' + encodeURIComponent(normalizeProductId(product.id));
 
   const img = document.createElement('img');
   img.className = 'thumb';
