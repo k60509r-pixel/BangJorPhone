@@ -39,17 +39,17 @@ header.topbar p {
   opacity: 0.85;
 }
 
-/* ===== Logo header (list page) ===== */
+/* ===== Banner header (list page + detail page) ===== */
 
 header.topbar-logo {
-  background: #ffffff;
-  padding: 14px 16px;
+  background: #000000;
+  padding: 0;
 }
 
 header.topbar-logo .logo {
   display: block;
   margin: 0 auto;
-  max-width: 180px;
+  max-width: 960px;
   width: 100%;
   height: auto;
 }
